@@ -127,7 +127,7 @@ export const Wallet = () => {
       {active ? (
         <div>✅</div>
       ) : (
-        <button type="button" onClick={onClick}>
+        <button type="button" onClick={onClick} id='connect-wallet'>
           Connect
         </button>
       )}
