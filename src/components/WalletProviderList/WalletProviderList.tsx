@@ -15,7 +15,7 @@ const WalletProviderList = ({
       {SUPPORTED_WALLET_PROVIDERS.map((provider) => (
         <Button
           key={provider.name}
-          variant="left-justified"
+          alignment="left-justified"
           intent="neutral"
           onClick={() => {
             onProviderSelected(provider);

@@ -2,7 +2,9 @@ import classNames from "classnames";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 type ButtonIntent = "neutral" | "primary" | "positive" | "destructive";
-type ButtonVariant = "centered" | "left-justified";
+type ButtonAlignment = "centered" | "left-justified";
+type ButtonVariant = "normal" | "ghost";
+type ButtonSize = "large" | "normal" | "small";
 
 export type ButtonProps = {
   children: React.ReactNode;
@@ -12,9 +14,17 @@ export type ButtonProps = {
    */
   intent?: ButtonIntent;
   /**
-   * Intent affects the appearance of the button
+   * Variant affects the appearance of the button
    */
-  variant?: ButtonVariant | ButtonVariant[];
+  variant?: ButtonVariant;
+  /**
+   * Size of button - large should be reserved for major CTA buttons.
+   */
+  size?: ButtonSize;
+  /**
+   * Alignment of button contents
+   */
+  alignment?: ButtonAlignment | ButtonAlignment[];
   /**
    * Whether or not the button should be disabled. Clicking a disabled button
    * has no effect.
@@ -38,6 +48,17 @@ const colorClasses: Record<ButtonIntent, string> = {
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
+  ghost: "bg-opacity-0 dark:bg-opacity-0 border border-ghostBorder",
+  normal: "",
+};
+
+const sizeClasses: Record<ButtonSize, string> = {
+  small: "text-base px-6 py-2",
+  normal: "text-base px-7 py-3",
+  large: "text-lg py-4 w-96",
+};
+
+const alignmentClasses: Record<ButtonAlignment, string> = {
   centered: "justify-center",
   "left-justified": "justify-start",
 };
@@ -46,18 +67,23 @@ export const Button = ({
   children,
   className = "",
   intent = "neutral",
-  variant = "centered",
+  size = "normal",
+  variant = "normal",
+  alignment = "centered",
   disabled = false,
   loading = false,
   onClick,
   ...rest
 }: ButtonProps) => {
-  const variants = Array.isArray(variant) ? variant : [variant];
+  const aligments = Array.isArray(alignment) ? alignment : [alignment];
+  console.log(size === undefined);
   return (
     <button
       className={classNames(
-        "px-2 py-1 rounded-sm",
+        "font-bold",
+        sizeClasses[size],
         colorClasses[intent],
+        variantClasses[variant],
         className,
         {
           "opacity-50": disabled,
@@ -75,7 +101,7 @@ export const Button = ({
       <div
         className={classNames(
           "flex flex-row items-center",
-          variants.map((v) => variantClasses[v])
+          aligments.map((v) => alignmentClasses[v])
         )}
       >
         <div
