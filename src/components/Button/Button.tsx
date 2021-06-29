@@ -76,7 +76,6 @@ export const Button = ({
   ...rest
 }: ButtonProps) => {
   const aligments = Array.isArray(alignment) ? alignment : [alignment];
-  console.log(size === undefined);
   return (
     <button
       className={classNames(
