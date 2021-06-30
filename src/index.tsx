@@ -8,6 +8,9 @@ import * as serviceWorker from "./serviceWorker";
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import Modal from "react-modal";
 
+// Fonts
+import "@fontsource/montserrat";
+
 const instance = createInstance({
   urlBase: "https://airswap.matomo.cloud/",
   siteId: 1,

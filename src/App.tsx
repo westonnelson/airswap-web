@@ -10,6 +10,12 @@ import DarkModeSwitch from "./components/DarkModeSwitch/DarkModeSwitch";
 import DrawerLayout from "./components/DrawerLayout/DrawerLayout";
 import Button from "./components/Button/Button";
 import widgetBgLight from "./assets/widget-backgrounds/widget-bg-light.png";
+import widgetBgDark from "./assets/widget-backgrounds/widget-bg-dark.png";
+import airswapLogoWhite from "./assets/airswap-logos/characters-white.svg";
+import airswapLogoBlack from "./assets/airswap-logos/characters-black.svg";
+import InformationFrame from "./features/information/InformationFrame";
+import Card from "./components/Card/Card";
+import useIsDarkMode from "./Hooks/useIsDarkMode";
 
 function getLibrary(provider: any): Web3Provider {
   const library = new Web3Provider(provider);
@@ -18,6 +24,9 @@ function getLibrary(provider: any): Web3Provider {
 }
 
 function App() {
+  const isDarkMode = useIsDarkMode();
+  console.log(isDarkMode);
+
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       {/* Suspense needed here for loading i18n resources */}
@@ -31,43 +40,35 @@ function App() {
           <DarkModeSwitch className="m-4" />
         </div> */}
         <DrawerLayout
-          drawer={
-            <div className="max-w-sm flex flex-col">
-              <nav className="flex justify-between my-14">
-                <span>Learn</span>
-                <span>Participate</span>
-                <span>Develop</span>
-                <span>Analyze</span>
-              </nav>
-              <article className="flex flex-col flex-1 justify-around py-14">
-                <div>
-                  <h1>Built by a brilliant community</h1>
-                  <p>
-                    Token holders decide what to build and work together to get
-                    it done.
-                  </p>
-                  {/* <Button intent="neutral">Learn more ⭢</Button> */}
-                </div>
-                <div>
-                  <h1>
-                    Secure swaps,
-                    <br /> no slippage,
-                    <br /> worry free.
-                  </h1>
-                  <p>
-                    Fight back against MEV with the purest peer-to-peer
-                    decentralized exchange.
-                  </p>
-                </div>
-              </article>
-            </div>
-          }
+          drawer={<InformationFrame />}
           main={
             <div className="flex items-center justify-center">
-              <img src={widgetBgLight} alt="airswap widget background"></img>
+              <div
+                className="relative p-9 bg-no-repeat bg-cover rounded-sm"
+                style={{
+                  width: "34.5rem",
+                  height: "36.5rem",
+                  backgroundImage: `url(${
+                    isDarkMode ? widgetBgDark : widgetBgLight
+                  })`,
+                }}
+              >
+                <Card className="w-full h-full">
+                  <h4>Swap now</h4>
+                </Card>
+              </div>
             </div>
           }
-          overlay={<div>overlay content</div>}
+          overlay={
+            <div>
+              <img
+                src={isDarkMode ? airswapLogoWhite : airswapLogoBlack}
+                alt="AirSwap Logo"
+                className="absolute top-12 left-16 w-40"
+              />
+              <DarkModeSwitch className="absolute top-14 right-10" />
+            </div>
+          }
         />
       </Suspense>
     </Web3ReactProvider>

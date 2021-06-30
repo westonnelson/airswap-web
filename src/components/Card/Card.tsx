@@ -8,7 +8,7 @@ const Card = ({
   className?: string;
 }) => {
   return (
-    <div className={classNames("p-4 flex bg-white dark:bg-black", className)}>
+    <div className={classNames("p-9 flex bg-white dark:bg-black", className)}>
       {children}
     </div>
   );

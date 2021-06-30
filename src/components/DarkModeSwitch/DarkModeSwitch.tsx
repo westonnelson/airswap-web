@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { RiSunLine, RiMoonLine } from "react-icons/ri";
 
-const THEME_LOCAL_STORAGE_KEY = "airswap/theme";
+export const THEME_LOCAL_STORAGE_KEY = "airswap/theme";
 
 function enableDarkMode(): void {
   document.documentElement.classList.add("dark");
@@ -17,7 +17,7 @@ function disableDarkMode(): void {
 // On page load or when changing themes, best to add inline in `head` to avoid FOUC
 if (
   localStorage[THEME_LOCAL_STORAGE_KEY] === "dark" ||
-  (!("theme" in localStorage) &&
+  (!(THEME_LOCAL_STORAGE_KEY in localStorage) &&
     window.matchMedia("(prefers-color-scheme: dark)").matches)
 ) {
   enableDarkMode();

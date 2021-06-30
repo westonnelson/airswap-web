@@ -7,13 +7,27 @@ module.exports = {
   theme: {
     extend: {},
     fontSize: {
-      sm: ["0.875rem", "1.25rem"],
+      title1: ["3rem", "3.5rem"],
+      title2: ["2.5rem", "3rem"],
+      title3: ["2rem", "2.5rem"],
+      title4: ["1.5rem", "2rem"],
+      subtitle1: ["1rem", "1.5rem"],
+      paragraph: ["1rem", "1.5rem"],
+      formlabel: ["1rem", "1.5rem"],
+      navigation: ["1rem", "1.5rem"],
+      metadata: ["0.875", "1.5rem"],
+      /** @deprecated */
       base: ["1rem", "1.5rem"],
+      /** @deprecated */
       lg: ["1.375rem", "1.5rem"],
+      /** @deprecated */
       xl: ["1.25rem", "2rem"],
+      /** @deprecated */
       "2xl": ["1.5rem", "2rem"],
+      /** @deprecated */
       h1: ["2.25rem", "2.7rem"],
     },
+
     colors: {
       transparent: "transparent",
       current: "currentColor",

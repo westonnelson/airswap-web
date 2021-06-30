@@ -5,23 +5,43 @@
 
 @layer base {
   /* Set base font */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
+  body {
     font-family: "Montserrat";
   }
 
+  /* light 300, medium 500, bold 700 */
   h1 {
-    @apply text-h1;
-    @apply mb-4;
+    @apply text-title1 font-medium;
+  }
+
+  h2 {
+    @apply text-title2 font-medium;
+  }
+
+  h3 {
+    @apply text-title3;
+  }
+
+  h4 {
+    @apply text-title4 font-bold;
+  }
+
+  /* Subtitle */
+  h5 {
+    @apply text-subtitle1 font-bold uppercase;
+  }
+
+  nav,
+  button {
+    @apply text-navigation font-bold;
   }
 
   p {
-    @apply text-base;
+    @apply text-paragraph;
+  }
+
+  label {
+    @apply text-formlabel font-bold;
   }
 }
 
@@ -36,14 +56,6 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
