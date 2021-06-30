@@ -12,6 +12,7 @@ module.exports = {
       lg: ["1.375rem", "1.5rem"],
       xl: ["1.25rem", "2rem"],
       "2xl": ["1.5rem", "2rem"],
+      h1: ["2.25rem", "2.7rem"],
     },
     colors: {
       transparent: "transparent",
