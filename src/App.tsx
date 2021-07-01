@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { Orders } from "./features/orders/Orders";
@@ -23,6 +24,9 @@ function getLibrary(provider: any): Web3Provider {
   return library;
 }
 
+// Route path;
+// /:section((?!0x)[^\/#\?]+)?/:senderToken(0x[a-zA-Z0-9]+|-)?/:signerToken(0x[a-zA-Z0-9]+|-)?
+
 function App() {
   const isDarkMode = useIsDarkMode();
   console.log(isDarkMode);
@@ -39,37 +43,52 @@ function App() {
           <Balances />
           <DarkModeSwitch className="m-4" />
         </div> */}
-        <DrawerLayout
-          drawer={<InformationFrame />}
-          main={
-            <div className="flex items-center justify-center">
-              <div
-                className="relative p-9 bg-no-repeat bg-cover rounded-sm"
-                style={{
-                  width: "34.5rem",
-                  height: "36.5rem",
-                  backgroundImage: `url(${
-                    isDarkMode ? widgetBgDark : widgetBgLight
-                  })`,
-                }}
-              >
-                <Card className="w-full h-full">
-                  <h4>Swap now</h4>
-                </Card>
-              </div>
-            </div>
-          }
-          overlay={
-            <div>
-              <img
-                src={isDarkMode ? airswapLogoWhite : airswapLogoBlack}
-                alt="AirSwap Logo"
-                className="absolute top-12 left-16 w-40"
-              />
-              <DarkModeSwitch className="absolute top-14 right-10" />
-            </div>
-          }
-        />
+        <Router>
+          <Route
+            path={[
+              // Section will match anything without a 0 in it up to a delimiter
+              // This makes sure it doesn't match in event of tokens only, i.e.
+              // /0x123/0x456
+              "/:section([^0/#?]+)?",
+              // 0x address or -
+              "/:senderToken(0x[a-zA-Z0-9]+|-)?",
+              // 0x address or -
+              "/:signerToken(0x[a-zA-Z0-9]+|-)?",
+            ].join("")}
+          >
+            <DrawerLayout
+              drawer={<InformationFrame />}
+              main={
+                <div className="flex items-center justify-center">
+                  <div
+                    className="relative p-9 bg-no-repeat bg-cover rounded-sm"
+                    style={{
+                      width: "34.5rem",
+                      height: "36.5rem",
+                      backgroundImage: `url(${
+                        isDarkMode ? widgetBgDark : widgetBgLight
+                      })`,
+                    }}
+                  >
+                    <Card className="w-full h-full">
+                      <h4>Swap now</h4>
+                    </Card>
+                  </div>
+                </div>
+              }
+              overlay={
+                <div>
+                  <img
+                    src={isDarkMode ? airswapLogoWhite : airswapLogoBlack}
+                    alt="AirSwap Logo"
+                    className="absolute top-12 left-16 w-40"
+                  />
+                  <DarkModeSwitch className="absolute top-14 right-10" />
+                </div>
+              }
+            />
+          </Route>
+        </Router>
       </Suspense>
     </Web3ReactProvider>
   );
