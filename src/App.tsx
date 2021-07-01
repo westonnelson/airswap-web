@@ -83,7 +83,7 @@ function App() {
                     alt="AirSwap Logo"
                     className="absolute top-12 left-16 w-40"
                   />
-                  <DarkModeSwitch className="absolute top-14 right-10" />
+                  <DarkModeSwitch className="absolute top-14 right-10 pointer-events-auto" />
                 </div>
               }
             />

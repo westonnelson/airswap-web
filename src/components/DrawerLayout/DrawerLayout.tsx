@@ -35,7 +35,9 @@ const DrawerLayout = ({ main, drawer, overlay }: DrawerLayoutProps) => {
       >
         {drawer}
       </section>
-      <section className={classNames("absolute inset-0 z-30")}>
+      <section
+        className={classNames("absolute inset-0 z-30 pointer-events-none")}
+      >
         {overlay}
       </section>
     </div>

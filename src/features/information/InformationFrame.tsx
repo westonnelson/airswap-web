@@ -1,6 +1,24 @@
 import classNames from "classnames";
-import { useRouteMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Link, useRouteMatch } from "react-router-dom";
 import Switch, { Case, Default } from "react-switch-case";
+
+const generatePath = (
+  section: string,
+  senderToken?: string,
+  signerToken?: string
+) => {
+  let path = "/";
+  if (section) path += `${section}/`;
+  if (signerToken) {
+    path += senderToken
+      ? `/${senderToken}/${signerToken}`
+      : `/-/${signerToken}`;
+  } else if (senderToken) {
+    path += `/${senderToken}/`;
+  }
+  return path;
+};
 
 const InformationFrame = () => {
   const match = useRouteMatch<{
@@ -9,29 +27,34 @@ const InformationFrame = () => {
     section?: string;
   }>();
 
+  type NavLocation = "learn" | "participate" | "develop" | "analyze";
+
+  const { t } = useTranslation(["information"]);
+
+  const allLocations: NavLocation[] = [
+    "learn",
+    "participate",
+    "develop",
+    "analyze",
+  ];
+
   const { section, senderToken, signerToken } = match.params;
 
   return (
     <div className="max-w-sm flex flex-col">
       <nav className="flex justify-between my-14">
-        <span
-          className={classNames({
-            "text-primary": section === "learn" || !section,
-          })}
-        >
-          Learn
-        </span>
-        <span
-          className={classNames({ "text-primary": section === "participate" })}
-        >
-          Participate
-        </span>
-        <span className={classNames({ "text-primary": section === "develop" })}>
-          Develop
-        </span>
-        <span className={classNames({ "text-primary": section === "analyze" })}>
-          Analyze
-        </span>
+        {allLocations.map((loc) => (
+          <Link
+            key={`informationFrameNav_${loc}`}
+            to={generatePath(loc, senderToken, signerToken)}
+            className={classNames({
+              "text-primary": section === loc || (loc === "learn" && !section),
+            })}
+          >
+            {/* @ts-ignore dynamic key */}
+            {t(`information:nav_${loc}`)}
+          </Link>
+        ))}
       </nav>
       <Switch condition={section}>
         <Case value="learn">
