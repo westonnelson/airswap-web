@@ -1,7 +1,19 @@
 import classNames from "classnames";
+import { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useRouteMatch } from "react-router-dom";
-import Switch, { Case, Default } from "react-switch-case";
+import { motion, AnimatePresence } from "framer-motion";
+
+import LearnContent from "./pages/learn";
+
+type NavLocation = "learn" | "participate" | "develop" | "analyze";
+
+const content: Record<NavLocation, FunctionComponent> = {
+  learn: LearnContent,
+  participate: () => <div>Participate</div>,
+  develop: LearnContent,
+  analyze: () => <div>Analyze</div>,
+};
 
 const generatePath = (
   section: string,
@@ -24,10 +36,8 @@ const InformationFrame = () => {
   const match = useRouteMatch<{
     senderToken?: string;
     signerToken?: string;
-    section?: string;
+    section?: NavLocation;
   }>();
-
-  type NavLocation = "learn" | "participate" | "develop" | "analyze";
 
   const { t } = useTranslation(["information"]);
 
@@ -56,38 +66,17 @@ const InformationFrame = () => {
           </Link>
         ))}
       </nav>
-      <Switch condition={section}>
-        <Case value="learn">
-          <article className="flex flex-col flex-1 justify-around py-14">
-            <div>
-              <h3 className="mb-5">Built by a brilliant community</h3>
-              <p>
-                Token holders decide what to build and work together to get it
-                done.
-              </p>
-              {/* <Button intent="neutral">Learn more ⭢</Button> */}
-            </div>
-            <div>
-              <h3 className="mb-5">
-                Secure swaps,
-                <br /> no slippage,
-                <br /> worry free.
-              </h3>
-              <p>
-                Fight back against MEV with the purest peer-to-peer
-                decentralized exchange.
-              </p>
-            </div>
-          </article>
-        </Case>
-        <Default>
-          <article className="flex flex-col flex-1 justify-around py-14">
-            <div>
-              <h3 className="mb-5">{section}</h3>
-            </div>
-          </article>
-        </Default>
-      </Switch>
+      <AnimatePresence exitBeforeEnter>
+        <motion.article
+          initial={{ opacity: 0, x: "150%" }}
+          animate={{ opacity: 1, x: "0%" }}
+          exit={{ opacity: 0, x: "150%" }}
+          key={section || "learn"}
+          className="flex flex-col flex-1 justify-around py-14 w-96"
+        >
+          {content[section || "learn"]({})}
+        </motion.article>
+      </AnimatePresence>
     </div>
   );
 };
