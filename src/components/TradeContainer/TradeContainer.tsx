@@ -1,6 +1,10 @@
 import React, { FC, ReactElement } from "react";
 
-import { Container, StyledTradeContainer } from "./TradeContainer.styles";
+import {
+  BackgroundBlurriness,
+  Container,
+  StyledTradeContainer,
+} from "./TradeContainer.styles";
 
 type TradeContainerProps = {
   isOpen?: boolean;
@@ -12,6 +16,7 @@ const TradeContainer: FC<TradeContainerProps> = ({
 }): ReactElement => {
   return (
     <StyledTradeContainer isOpen={isOpen}>
+      <BackgroundBlurriness />
       <Container>{children}</Container>
     </StyledTradeContainer>
   );
