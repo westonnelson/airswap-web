@@ -126,26 +126,24 @@ export const WalletTransaction = ({
       <Container>
         <StyledWalletTransactionStatus status={tx.status} />
         <TextContainer>
-          {approvalToken && (
-            <>
-              <SpanTitle>
-                {t("wallet:approve", { symbol: approvalToken.symbol })}
-              </SpanTitle>
-              <SpanSubtitle>
-                {tx.status === "succeeded"
-                  ? t("common:success")
-                  : tx.status === "processing"
-                  ? t("common:processing")
-                  : t("common:failed")}{" "}
-                ·{" "}
-                {tx.timestamp
-                  ? t("wallet:transactionTimeAgo", {
-                      time: getTimeBetweenTwoDates(new Date(tx.timestamp)),
-                    })
-                  : t("common:undefined")}
-              </SpanSubtitle>
-            </>
-          )}
+          <>
+            <SpanTitle>
+              {t("wallet:approve", { symbol: approvalToken?.symbol })}
+            </SpanTitle>
+            <SpanSubtitle>
+              {tx.status === "succeeded"
+                ? t("common:success")
+                : tx.status === "processing"
+                ? t("common:processing")
+                : t("common:failed")}{" "}
+              ·{" "}
+              {tx.timestamp
+                ? t("wallet:transactionTimeAgo", {
+                    time: getTimeBetweenTwoDates(new Date(tx.timestamp)),
+                  })
+                : t("common:undefined")}
+            </SpanSubtitle>
+          </>
         </TextContainer>
         {tx.hash && <StyledTransactionLink chainId={chainId} hash={tx.hash} />}
       </Container>
