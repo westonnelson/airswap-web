@@ -34,6 +34,7 @@ const App = (): JSX.Element => {
   const systemTheme = useSystemTheme();
   const renderedTheme: ThemeType =
     theme === "system" ? systemTheme : (theme as ThemeType);
+  console.info("build", process.env.REACT_APP_VERSION);
 
   return (
     <ThemeProvider theme={renderedTheme === "dark" ? darkTheme : lightTheme}>

@@ -4,8 +4,8 @@
   "private": true,
   "homepage": "https://preview.airswap.io/",
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "export REACT_APP_VERSION=$(git rev-parse HEAD) && craco start",
+    "build": "export REACT_APP_VERSION=$(git rev-parse HEAD) && craco build",
     "lint": "prettier --write \"./src/**/*.{ts,tsx}\"",
     "test": "craco test",
     "eject": "react-scripts eject",
